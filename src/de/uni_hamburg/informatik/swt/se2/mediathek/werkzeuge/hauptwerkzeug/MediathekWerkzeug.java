@@ -8,6 +8,7 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.Medien
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.ausleihe.AusleihWerkzeug;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.rueckgabe.RueckgabeWerkzeug;
+import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.vormerken.VormerkService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.vormerken.VormerkWerkzeug;
 
 /**
@@ -37,6 +38,8 @@ public class MediathekWerkzeug
      * Der Service zum Verleihen und Zurücknehmen von Medien.
      */
     private final VerleihService _verleihService;
+    
+    private final VormerkService _vormerkService;
 
     /**
      * Das AusleihWerkzeug.
@@ -65,22 +68,24 @@ public class MediathekWerkzeug
      * @require verleihService != null
      */
     public MediathekWerkzeug(MedienbestandService medienbestand,
-            KundenstammService kundenstamm, VerleihService verleihService)
+            KundenstammService kundenstamm, VerleihService verleihService, VormerkService vormerkService)
     {
         assert medienbestand != null : "Vorbedingung verletzt: medienbestand != null";
         assert kundenstamm != null : "Vorbedingung verletzt: kundenstamm != null";
         assert verleihService != null : "Vorbedingung verletzt: verleihService != null";
+        assert vormerkService != null : "Vorbedingung verletzt: vormerkService != null";
 
         _medienbestand = medienbestand;
         _kundenstamm = kundenstamm;
         _verleihService = verleihService;
+        _vormerkService = vormerkService;
 
         // Erzeuge Subwerkzeuge
         _ausleihWerkzeug = new AusleihWerkzeug(_medienbestand, _kundenstamm,
-                _verleihService);
+                _verleihService, _vormerkService);
         _rueckgabeWerkzeug = new RueckgabeWerkzeug(_verleihService);
         _vormerkWerkzeug = new VormerkWerkzeug(_medienbestand, _kundenstamm,
-                _verleihService);
+                _verleihService, _vormerkService);
         // Erzeuge UI für dieses Werkzeug
         _mediathekUI = new MediathekUI(_ausleihWerkzeug.getUIPanel(),
                 _rueckgabeWerkzeug.getUIPanel(), _vormerkWerkzeug.getUIPanel());
