@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.Kunde;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.medien.Medium;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.KundenstammService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
@@ -37,6 +38,14 @@ public class VormerkService {
 		public List<VormerkKarte> getVormerkKarten()
 		{
 			return new ArrayList<VormerkKarte>(_vormerkkarten.values());
+		}
+
+		public Kunde getVormerkKarteFuer(Medium medium, int platz) {
+			if(_vormerkkarten.containsKey(medium))
+			{
+				return _vormerkkarten.get(medium).getKunde(platz);
+			}
+			return null;
 		}
 
 }

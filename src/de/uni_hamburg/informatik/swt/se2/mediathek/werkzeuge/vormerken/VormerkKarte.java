@@ -17,5 +17,8 @@ public class VormerkKarte {
 			_kunden.add(k);
 		}
 		
-
+		public Kunde getKunde(int platz)
+		{
+			return _kunden.get(platz);
+		}
 }
