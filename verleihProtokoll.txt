@@ -1,0 +1,26 @@
+Tue May 16 21:05:43 CEST 2017: Ausleihe
+DVD:
+    Titel: Pirates of the Caribbean - Am Ende der Welt
+    Kommentar: Abenteuer des Cpt. Jack Sparrow
+    Regisseur: Gore Verbinski
+    Laufzeit: 160
+am 16.5.2017 verliehen an
+    Kundennummer: 123461
+    Name: Anna Kurnikowa
+    Telefon: unbekannt
+    Anschrift:
+    Osterweg 1
+    22670 Hamburg
+Tue May 16 21:05:45 CEST 2017: Ausleihe
+DVD:
+    Titel: James Bond - Ein Quantum Trost
+    Kommentar: Ein Quantum Trost setzt da an, wo Casino Royale endet
+    Regisseur: Marc Forster
+    Laufzeit: 110
+am 16.5.2017 verliehen an
+    Kundennummer: 123461
+    Name: Anna Kurnikowa
+    Telefon: unbekannt
+    Anschrift:
+    Osterweg 1
+    22670 Hamburg
