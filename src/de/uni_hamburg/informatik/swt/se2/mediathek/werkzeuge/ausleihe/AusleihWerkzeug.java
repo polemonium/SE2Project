@@ -224,7 +224,8 @@ public class AusleihWerkzeug
         {
         	for(Medium m : medien)
         	{
-        		if(m.equals(_vormerkService.getVormerkKarteFuer(m, 0)))
+        		if(kunde.equals(_vormerkService.getVormerkKarteFuer(m, 0)) || 
+        				!_vormerkService.istVorgemerkt(m))
         		{
         			return true;
         		}

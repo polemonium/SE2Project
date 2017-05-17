@@ -62,4 +62,16 @@ public class VormerkService {
 			return _vormerkkarten.size();
 		}
 
+		public void addVormerkung(Medium m, Kunde k)
+		{
+			if(!istVorgemerkt(m))
+			{
+			VormerkKarte v = new VormerkKarte(m, k);
+			_vormerkkarten.put(m, v);
+			}
+			else
+			{
+			_vormerkkarten.get(m)._kunden.add(k);
+			}
+		}
 }

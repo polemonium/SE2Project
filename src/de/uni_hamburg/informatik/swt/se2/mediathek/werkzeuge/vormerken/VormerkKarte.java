@@ -19,6 +19,10 @@ public class VormerkKarte {
 		
 		public Kunde getKunde(int platz)
 		{
+			if(_kunden.size() > platz)
+			{
 			return _kunden.get(platz);
+			}
+			return null;
 		}
 }
