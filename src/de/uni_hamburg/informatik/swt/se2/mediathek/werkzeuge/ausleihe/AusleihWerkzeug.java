@@ -91,7 +91,7 @@ public class AusleihWerkzeug
         // Subwerkzeuge erstellen
         _kundenAuflisterWerkzeug = new KundenauflisterWerkzeug(kundenstamm);
         _medienAuflisterWerkzeug = new AusleiheMedienauflisterWerkzeug(
-                medienbestand, verleihService);
+                medienbestand, verleihService, vormerkService);
         _medienDetailAnzeigerWerkzeug = new MedienDetailAnzeigerWerkzeug();
         _kundenDetailAnzeigerWerkzeug = new KundenDetailAnzeigerWerkzeug();
 
@@ -220,10 +220,17 @@ public class AusleihWerkzeug
         // TODO für Aufgabenblatt 6 (nicht löschen): So ändern, dass vorgemerkte
         // Medien nur vom ersten Vormerker ausgeliehen werden können, gemäß
         // Anforderung d).
-        boolean ausleiheMoeglich = (kunde != null) && !medien.isEmpty()
-                && _verleihService.sindAlleNichtVerliehen(medien);
-
-        return ausleiheMoeglich;
+        if((kunde != null) && !medien.isEmpty() && _verleihService.sindAlleNichtVerliehen(medien))
+        {
+        	for(Medium m : medien)
+        	{
+        		if(m.equals(_vormerkService.getVormerkKarteFuer(m, 0)))
+        		{
+        			return true;
+        		}
+        	}
+        }
+        return false;
     }
 
     /**

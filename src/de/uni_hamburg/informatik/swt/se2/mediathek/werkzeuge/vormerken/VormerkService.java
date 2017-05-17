@@ -35,6 +35,15 @@ public class VormerkService {
 	        _vormerkkarten = new HashMap<Medium, VormerkKarte>();
 	    }
 	    
+	    public boolean istVorgemerkt(Medium m)
+	    {
+	    	if(_vormerkkarten.containsKey(m))
+	    	{
+	    		return true;
+	    	}
+	    	return false;
+	    }
+	    
 		public List<VormerkKarte> getVormerkKarten()
 		{
 			return new ArrayList<VormerkKarte>(_vormerkkarten.values());
@@ -46,6 +55,11 @@ public class VormerkService {
 				return _vormerkkarten.get(medium).getKunde(platz);
 			}
 			return null;
+		}
+		
+		public int getAnzahlVormerkungen(Medium m)
+		{
+			return _vormerkkarten.size();
 		}
 
 }

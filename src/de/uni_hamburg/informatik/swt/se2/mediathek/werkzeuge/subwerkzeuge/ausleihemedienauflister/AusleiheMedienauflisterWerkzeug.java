@@ -13,6 +13,7 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.services.ServiceObserver;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.ObservableSubWerkzeug;
+import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.vormerken.VormerkService;
 
 /**
  * Ein AusleiheMedienauflisterWerkzeug ist ein Werkzeug zum auflisten von Medien
@@ -29,6 +30,7 @@ public class AusleiheMedienauflisterWerkzeug extends ObservableSubWerkzeug
     private AusleiheMedienauflisterUI _ui;
     private MedienbestandService _medienbestand;
     private final VerleihService _verleihService;
+    private final VormerkService _vormerkService;
 
     /**
      * Initialisiert ein neues AusleiheMedienauflisterWerkzeug. Es wird die
@@ -41,13 +43,14 @@ public class AusleiheMedienauflisterWerkzeug extends ObservableSubWerkzeug
      * @require verleihService != null
      */
     public AusleiheMedienauflisterWerkzeug(MedienbestandService medienbestand,
-            VerleihService verleihService)
+            VerleihService verleihService, VormerkService vormerkService)
     {
         assert medienbestand != null : "Vorbedingung verletzt: medienbestand != null";
         assert verleihService != null : "Vorbedingung verletzt: verleihService != null";
 
         _medienbestand = medienbestand;
         _verleihService = verleihService;
+        _vormerkService = vormerkService;
 
         // UI wird erzeugt.
         _ui = new AusleiheMedienauflisterUI();
@@ -80,13 +83,16 @@ public class AusleiheMedienauflisterWerkzeug extends ObservableSubWerkzeug
         for (Medium medium : medienListe)
         {
             boolean istVerliehen = _verleihService.istVerliehen(medium);
+            Kunde ersterVormerker = null;
             // TODO für Aufgabenblatt 6 (nicht löschen): Falls ein Vormerker für
             // ein Medium existiert, muss dieser hier ermittelt werden.
             // Ist dies korrekt implementiert, erscheint in der Ausleiheansicht
             // der Name des Vormerkers, an den ein Medium ausgeliehen werden
             // darf, gemäß Anforderung d).
-            Kunde ersterVormerker = null;
-
+            if(_vormerkService.istVorgemerkt(medium))
+            {
+            	ersterVormerker = _vormerkService.getVormerkKarteFuer(medium, 0);
+            }
             medienFormatierer.add(new AusleiheMedienFormatierer(medium,
                     istVerliehen, ersterVormerker));
         }
