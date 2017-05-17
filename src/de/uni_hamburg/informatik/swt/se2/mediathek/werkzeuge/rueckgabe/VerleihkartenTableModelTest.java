@@ -20,6 +20,7 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.Medien
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandServiceImpl;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.verleih.VerleihServiceImpl;
+import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.vormerken.VormerkService;
 
 public class VerleihkartenTableModelTest
 {
@@ -27,6 +28,7 @@ public class VerleihkartenTableModelTest
     private Verleihkarte _karte2;
     private VerleihService _verleihService;
     private VerleihkartenTableModel _model;
+    private VormerkService _vormerkService;
 
     public VerleihkartenTableModelTest()
     {
@@ -52,7 +54,7 @@ public class VerleihkartenTableModelTest
         verleihkarten.add(_karte1);
         verleihkarten.add(_karte2);
         _verleihService = new VerleihServiceImpl(kundenstamm, medienbestand,
-                verleihkarten);
+                verleihkarten, _vormerkService);
         _model = new VerleihkartenTableModel();
         _model.setVerleihkarten(_verleihService.getVerleihkarten());
     }

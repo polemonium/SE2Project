@@ -7,10 +7,11 @@ import java.util.Map;
 
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.Kunde;
 import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.medien.Medium;
+import de.uni_hamburg.informatik.swt.se2.mediathek.services.AbstractObservableService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.KundenstammService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
 
-public class VormerkService {
+public class VormerkService extends  AbstractObservableService{
 	   private Map<Medium, VormerkKarte> _vormerkkarten;
 	    
 
@@ -73,5 +74,23 @@ public class VormerkService {
 			{
 			_vormerkkarten.get(m)._kunden.add(k);
 			}
+			informiereUeberAenderung();
+		}
+		public void removeVormerkung(Medium m)
+		{
+			_vormerkkarten.get(m)._kunden.remove(0);
+			if(_vormerkkarten.get(m)._kunden.size() == 0)
+			{
+				_vormerkkarten.remove(m);
+			}
+		}
+		
+		public VormerkKarte getVormerkKarteFuer(Medium medium)
+		{
+			if(_vormerkkarten.containsKey(medium))
+			{
+			return _vormerkkarten.get(medium);
+			}
+			return null;
 		}
 }

@@ -12,6 +12,7 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.materialien.medien.Medium;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.AbstractObservableService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.KundenstammService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
+import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.vormerken.VormerkService;
 
 /**
  * Diese Klasse implementiert das Interface VerleihService. Siehe dortiger
@@ -45,6 +46,8 @@ public class VerleihServiceImpl extends AbstractObservableService
      * Der Protokollierer für die Verleihvorgänge.
      */
     private VerleihProtokollierer _protokollierer;
+    
+    private VormerkService _vormerkService;
 
     /**
      * Konstruktor. Erzeugt einen neuen VerleihServiceImpl.
@@ -59,7 +62,7 @@ public class VerleihServiceImpl extends AbstractObservableService
      */
     public VerleihServiceImpl(KundenstammService kundenstamm,
             MedienbestandService medienbestand,
-            List<Verleihkarte> initialBestand)
+            List<Verleihkarte> initialBestand, VormerkService vormerkService)
     {
         assert kundenstamm != null : "Vorbedingung verletzt: kundenstamm  != null";
         assert medienbestand != null : "Vorbedingung verletzt: medienbestand  != null";
@@ -68,6 +71,7 @@ public class VerleihServiceImpl extends AbstractObservableService
         _kundenstamm = kundenstamm;
         _medienbestand = medienbestand;
         _protokollierer = new VerleihProtokollierer();
+        _vormerkService = vormerkService;
     }
 
     /**
@@ -209,6 +213,10 @@ public class VerleihServiceImpl extends AbstractObservableService
                     ausleihDatum);
 
             _verleihkarten.put(medium, verleihkarte);
+            if(_vormerkService.istVorgemerkt(medium))
+            {
+            	_vormerkService.removeVormerkung(medium);
+            }
             _protokollierer.protokolliere(
                     VerleihProtokollierer.EREIGNIS_AUSLEIHE, verleihkarte);
         }

@@ -1,6 +1,7 @@
 package de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.vormerken;
 
 import java.awt.event.ActionEvent;
+import de.uni_hamburg.informatik.swt.se2.mediathek.services.AbstractObservableService;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -200,7 +201,8 @@ public class VormerkWerkzeug {
 		if (kunde != null && !medien.isEmpty()) {
 			for (Medium m : medien) {
 				if (_vormerkService.getVormerkKarten().contains(m)) {
-					if (_vormerkService.getAnzahlVormerkungen(m) < 2) {
+					if (_vormerkService.getAnzahlVormerkungen(m) < 2 && 
+							!(_vormerkService.getVormerkKarteFuer(m)._kunden.contains(kunde))) {
 						return true;
 					}
 				} 

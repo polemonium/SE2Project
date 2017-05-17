@@ -21,6 +21,7 @@ import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.Kundenst
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.kundenstamm.KundenstammServiceImpl;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandService;
 import de.uni_hamburg.informatik.swt.se2.mediathek.services.medienbestand.MedienbestandServiceImpl;
+import de.uni_hamburg.informatik.swt.se2.mediathek.werkzeuge.vormerken.VormerkService;
 
 /**
  * @author SE2-Team
@@ -32,6 +33,7 @@ public class VerleihServiceImplTest
     private VerleihService _service;
     private List<Medium> _medienListe;
     private Kunde _vormerkkunde;
+    private VormerkService _vormerkService;
 
     public VerleihServiceImplTest()
     {
@@ -56,7 +58,7 @@ public class VerleihServiceImplTest
         medienbestand.fuegeMediumEin(medium);
         _medienListe = medienbestand.getMedien();
         _service = new VerleihServiceImpl(kundenstamm, medienbestand,
-                new ArrayList<Verleihkarte>());
+                new ArrayList<Verleihkarte>(), _vormerkService);
     }
 
     @Test
